@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Comments;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -67,7 +68,27 @@ class IndexController extends Controller
         // Return the client.products.show view with the retrieved product and comments
         return view('client.products.show', compact('product', 'comments'));
     }
+
+    public function products() {
+        $products = Product::with('images')->get();
+        $category = Category::all();
+        return view('client.products.listing', compact('products', 'category'));
+    }
     
+    public function comment() {
+        
+    }
+
+    public function contact() {
+
+        // return view('client.contact');
+        return dd(Auth::check());
+    }
+
+    public function sendContact() {
+
+        //
+    }
 
 
 }
