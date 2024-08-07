@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index() {
-        // dd(auth()->check());
-        dd(auth()->user());
+        // // dd(auth()->check());
+        // dd(auth()->user());
         return view('admin.dashboard');
     }
 }

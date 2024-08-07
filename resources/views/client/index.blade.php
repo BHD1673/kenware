@@ -143,13 +143,20 @@
                             @auth
                                 <!-- Show this if the user is logged in -->
                                 <span class="nav-item nav-link">Hello {{ auth()->user()->ho_ten }}.</span>
+                        
+                                <!-- Check if the user is an admin and show the admin link -->
+                                @if(auth()->user()->role == 'admin')
+                                    <a href="{{ route('dashboard') }}" class="nav-item nav-link">Trang admin</a>
+                                @endif
+                        
                                 <a href="{{ route('logout') }}" class="nav-item nav-link"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                             @endauth
-                        </div>                        
+                        </div>
+                                            
                     </div>
                 </nav>
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">

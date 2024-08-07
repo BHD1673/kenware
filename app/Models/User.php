@@ -45,7 +45,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'chuc_vu_id');
     }
 
-    // Specify the password column name
+    public function getRoleAttribute()
+    {
+        return $this->attributes['role'] ?? 'user';
+    }
+
     public function getAuthPassword()
     {
         return $this->mat_khau;

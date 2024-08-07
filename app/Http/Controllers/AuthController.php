@@ -34,7 +34,9 @@ class AuthController extends Controller
     
         // Attempt to authenticate the user
         if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect()->intended('/admin'); // Redirect to intended or default route
+            $user = auth()->user();
+            // Redirect based on the role of the authenticated user
+            return redirect()->route($user->role == 'admin' ? 'admin.dashboard' : 'home');
         }
     
         // Handle failed login attempt

@@ -112,29 +112,26 @@
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="{{route('home')}}" class="nav-item nav-link active">Trang chủ</a>
-                            <a href="{{route('products')}}" class="nav-item nav-link">Danh sách san pham</a>
-                            <a href="{{route('contact')}}" class="nav-item nav-link">Contact</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            @guest
-                                <!-- Show these links if the user is not logged in -->
-                                <a href="{{ route('login') }}" class="nav-item nav-link">Đăng nhập</a>
-                                <a href="{{ route('register') }}" class="nav-item nav-link">Đăng ký</a>
-                            @endguest
-                        
-                            @auth
-                                <!-- Show this if the user is logged in -->
-                                <span class="nav-item nav-link">Hello {{ auth()->user()->ho_ten }}.</span>
-                                <a href="{{ route('logout') }}" class="nav-item nav-link" 
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            @endauth
-                        </div>
+                    <div class="navbar-nav ml-auto py-0">
+                        @guest
+                            <a href="{{ route('login') }}" class="nav-item nav-link">Đăng nhập</a>
+                            <a href="{{ route('register') }}" class="nav-item nav-link">Đăng ký</a>
+                        @endguest
+                    
+                        @auth
+                            <span class="nav-item nav-link">Hello {{ auth()->user()->ho_ten }}.</span>
+                    
+                            @if(auth()->user()->role == 'admin')
+                                <a href="{{ route('dashboard') }}" class="nav-item nav-link">Trang admin</a>
+                            @endif
+                    
+                            <a href="{{ route('logout') }}" class="nav-item nav-link"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        @endauth
+                    </div>
                         
                     </div>
                 </nav>
