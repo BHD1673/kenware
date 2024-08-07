@@ -10,36 +10,44 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'tb_tai_khoan'; // Specify the table name
+
+    protected $primaryKey = 'id'; // Specify the primary key column
+
+    public $timestamps = false; // If your table doesn't have created_at and updated_at columns
+
     protected $fillable = [
-        'name',
+        'anh_dai_dien',
+        'ho_ten',
         'email',
-        'password',
+        'so_dien_thoai',
+        'gioi_tinh',
+        'dia_chi',
+        'ngay_sinh',
+        'mat_khau',
+        'chuc_vu_id',
+        'trang_thai',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
+        'mat_khau', // Hide the password field
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    public function chucVu()
+    {
+        return $this->belongsTo(Role::class, 'chuc_vu_id');
+    }
+
+    // Specify the password column name
+    public function getAuthPassword()
+    {
+        return $this->mat_khau;
+    }
 }

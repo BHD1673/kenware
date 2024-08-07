@@ -17,7 +17,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <form id="loginForm" action="{{ route('login') }}" method="POST">
+                <form id="loginForm" action="{{ route('postLogin') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Tên email</label>
@@ -35,7 +35,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Login</button>
                     <div class="mt-3 text-center">
-                        <a href="{{ route('password.request') }}">Quên mật khẩu ?</a>
+                        <a href="{{ route('passwordRequest') }}">Quên mật khẩu ?</a>
                     </div>
                     <div class="mt-3 text-center">
                         <a href="{{ route('register') }}">Chưa có tài khoản ? Đăng ký ngay</a>

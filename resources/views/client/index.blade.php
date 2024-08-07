@@ -27,6 +27,11 @@
 </head>
 
 <body>
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
@@ -129,9 +134,22 @@
                             <a href="{{route('contact')}}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="{{route('login')}}" class="nav-item nav-link">Đăng nhập</a>
-                            <a href="{{route('register')}}" class="nav-item nav-link">Đăng ký</a>
-                        </div>
+                            @guest
+                                <!-- Show these links if the user is not logged in -->
+                                <a href="{{ route('login') }}" class="nav-item nav-link">Đăng nhập</a>
+                                <a href="{{ route('register') }}" class="nav-item nav-link">Đăng ký</a>
+                            @endguest
+                        
+                            @auth
+                                <!-- Show this if the user is logged in -->
+                                <span class="nav-item nav-link">Hello {{ auth()->user()->ho_ten }}.</span>
+                                <a href="{{ route('logout') }}" class="nav-item nav-link"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            @endauth
+                        </div>                        
                     </div>
                 </nav>
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
